@@ -7,38 +7,80 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
+<script>
+	
+</script>
+
 <!-- Custom Theme files -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link  rel="stylesheet" href="style.css">
-<!-- //Custom Theme files -->
-<!-- web font -->
 
 <!-- //web font -->
 </head>
-<body>
-	<!-- main -->
-	<div class="main-w3layouts wrapper" align="center">
+<body >
+	<style>
+
+
+html, body {
+  width: 100%;
+  height:100%;
+}
+
+body {
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+}
+.main{
+	margin-left: 60%
+}
+
+.info{
+	margin-top: 5%;
+	margin-left: 10%;
+}
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+	
+}
+
+
+	</style>
+    
+	<div class="info">
+		<h1>WELCOME TO VQUEUE<br></h1>
+		<p>Providing the Queue at your Finger Tip</p>
+	</div>
+	<div class="main" align="center">
+		<style>
+			
+		</style>
 		<h1>LOGIN</h1>
 		<div class="main-agileinfo">
 			<div class="agileits-top">
-				<form action="#" method="post">
 					<input class="text" type="text" name="Username" placeholder="Username" required=""><br><br>
 					
 					<input class="text" type="password" name="password" placeholder="Password" required=""><br><br>
 					
 					<div class="wthree-text">
-						<label class="anim">
-							<input type="checkbox" class="checkbox" required="">
-							<span>I Agree To The Terms & Conditions</span>
-						</label>
+						
 						<div class="clear"> </div>
 					</div>
-					<input type="submit" value="SIGNUP">
-				</form>
+					<input type="submit" value="SIGN IN">
+		
 				<p>Don't have an Account? <a href="#"> Sign Up Now!</a></p>
 			</div>
 		</div>		
-        <input type="button" value="CREATE A QUEUE" >
+		       
+		<a href="/create"> CREATE QUEUE</a>
         
 	
 	</div>

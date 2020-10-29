@@ -3,7 +3,7 @@ var router = express.Router();
 
 router.get('/', function(req, res, next) {
    
-   res.render('user/land.hbs')
+   res.render('user/create.hbs')
   });
 
   

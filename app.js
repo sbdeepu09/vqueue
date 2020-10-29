@@ -6,11 +6,15 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var userRouter = require('./routes/user');
-var adminRouter = require('./routes/admin');
-var landRouter = require('./routes/land');
-var createRouter = require('./routes/create');
+
+
+
+var QmanagerRouter = require('./routes/Qmanager');
+
 
 var app = express();
+var db=require('./config/connection')
+var session=require('express-session')
 /*
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -28,11 +32,18 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({secret:'Key',cookie:{maxAge:600000}}))
+db.connect((err)=>{
+  if(err)
+  console.log("ERROR :"+err);
+  else
+  console.log("DATABASE CONNECTED");
+})
 
 app.use('/', userRouter);
-app.use('/land',landRouter);
-app.use('/admin', adminRouter);
-app.use('/create',createRouter);
+
+app.use('/Qmanager', QmanagerRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

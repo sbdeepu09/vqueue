@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -66,21 +64,22 @@ body {
 		<h1>LOGIN</h1>
 		<div class="main-agileinfo">
 			<div class="agileits-top">
-					<input class="text" type="text" name="Username" placeholder="Username" required=""><br><br>
+
+				<form action="/" method="POST">
+					<input class="text" type="text" name="Email" placeholder="Email" required=""><br><br>
 					
-					<input class="text" type="password" name="password" placeholder="Password" required=""><br><br>
-					
-					<div class="wthree-text">
-						
-						<div class="clear"> </div>
-					</div>
-					<input type="submit" value="SIGN IN">
-		
-				<p>Don't have an Account? <a href="#"> Sign Up Now!</a></p>
+					<input class="text" type="password" name="Password" placeholder="Password" required=""><br><br>
+					{{#if loginErr}}
+                	<p class="error">{{loginErr}}</p>
+                	{{/if}}
+					<input type="submit" value="Login">
+				</form>
+				<p>Don't have an Account? <a href="/signup"> Sign Up Now!</a></p>
+
 			</div>
 		</div>		
 		       
-		<a href="/create"> CREATE QUEUE</a>
+		<a href="/Qmanager"> CREATE QUEUE</a>
         
 	
 	</div>

@@ -1,0 +1,34 @@
+<div class="row">
+    <div class="col-md-6 m-auto">
+        <div class="container mt-5 pl-5">
+            <h2 class="text-center">Create new account</h2>
+            <form action="/signup" method="POST">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" class="form-control" name="Name" placeholder="Enter Name">
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" class="form-control" name="Email" placeholder="Enter email">
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" class="form-control" name="Phone" placeholder="Phone Number">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" class="form-control" name="Password" placeholder="Password">
+                </div>
+                <div class="form-group">
+                    <p>Do you want to ceate Queue:</p>
+                    <input type="radio" id="yes" name="Qmanager" value="true">
+                    <label for="yes">Yes</label><br>
+                    <input type="radio" id="no" name="Qmanager" value="false">
+                    <label for="no">No</label><br>
+                </div>
+                <a href="/">Already have account ?</a>
+                <button type="submit" class="btn btn-primary float-right">Signup</button>
+            </form>
+        </div>
+    </div>
+</div>

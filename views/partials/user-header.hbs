@@ -35,6 +35,17 @@
         <a class="nav-link" href="#">Contact Us</a>
       </li>
     </ul>
+    <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{user.Name}}                  
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    {{#if user}}
+                    <a class="dropdown-item" href="/logout">Logout</a>
+                    {{/if}}
+                </div>
+            </div>
     <div>
       <button type="button" class="btn btn-danger">Create Queue</button>
     </div>

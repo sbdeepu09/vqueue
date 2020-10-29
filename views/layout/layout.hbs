@@ -16,7 +16,8 @@
 <body>
     {{#if Qmanager}}
     {{>Qmanager-header}}
-    {{else}}
+     {{/if}}
+    {{#if user}}
     {{>user-header}}
     {{/if}}
     {{{body}}}

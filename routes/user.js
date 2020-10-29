@@ -2,7 +2,11 @@ var express = require('express');
 var router = express.Router();
 var userHelper=require('../helpers/user-helpers')
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/',(req,res)=>{
+  res.render('user/land');
+});
+
+router.get('/home', function(req, res, next) {
   let services=[
     {
       name:"K P Stores",
@@ -24,7 +28,7 @@ router.get('/signup',(req,res)=>{
 
 router.post('/signup',(req,res)=>{
   userHelper.doSignup(req.body).then((response)=>{
-    console.log(resposne)
+    console.log(response)
   })
 })
 

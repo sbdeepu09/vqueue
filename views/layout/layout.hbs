@@ -14,7 +14,9 @@
 </head>
 
 <body>
-    {{#if user}}
+    {{#if Qmanager}}
+    {{>Qmanager-header}}
+    {{else}}
     {{>user-header}}
     {{/if}}
     {{{body}}}

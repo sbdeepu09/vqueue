@@ -11,4 +11,5 @@ router.get('/', function(req, res, next) {
   res.render('Qmanager/create.hbs')
  });
 
+ router.get('/create')
 module.exports = router;

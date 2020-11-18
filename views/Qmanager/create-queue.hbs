@@ -1,3 +1,17 @@
 <div class="container">
     <h1 class="text-center">Create Your Queue</h1>
+    <div class="row mt-5">
+        <div class="col-md-6">
+            <form action="/Qmanager/create-queue" method="POST">
+                <label for="qname">Queue name</label>
+                <input type="text" name="qname" class="form-control">
+                <label for="start">Starting time</label>
+                <input type="time" name="start" class="form-control">
+                <label for="end">Ending time</label>
+                <input type="time" name="end" class="form-control">
+                <button class="btn btn-primary mt-3" type="submit">Create Queue</button>
+
+            </form>
+        </div>
+    </div>
 </div>

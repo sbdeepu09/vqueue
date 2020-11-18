@@ -14,11 +14,12 @@
 </head>
 
 <body>
-    {{#if Qmanager}}
+    {{#if user.Qmanager}}
     {{>Qmanager-header}}
-     {{/if}}
-    {{#if user}}
-    {{>user-header}}
+    {{else}}
+        {{#if user}}
+            {{>user-header}}
+        {{/if}}
     {{/if}}
     {{{body}}}
 

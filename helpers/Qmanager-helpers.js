@@ -29,9 +29,23 @@ module.exports={
         })
     },
     createQueue:(Qdetails)=>{
-        return new Promise(async(resolve,reject)=>{
+        return new Promise((resolve,reject)=>{
+            Qdetails.startHr=parseInt(Qdetails.startHr)
+            Qdetails.startMin=parseInt(Qdetails.startMin)
+            Qdetails.endHr=parseInt(Qdetails.endHr)
+            Qdetails.endMin=parseInt(Qdetails.endMin)
+            Qdetails.slotHr=parseInt(Qdetails.slotHr)
+            Qdetails.slotMin=parseInt(Qdetails.slotMin);
+            (Qdetails)=>{
+                if(Qdetails.startHr>Qdetails.endHr)
+                {
+                    Qdetails.availableHr = 24-(Qdetails.startHr-Qdetails.endHr)
+                    
+                }
+            }
             db.get().collection(collection.QUEUE_COLLECTION).insertOne(Qdetails).then((data) =>{
-                console.log(data.ops[0].start);
+                console.log(data.ops[0]);
+                
             })
         })
     }

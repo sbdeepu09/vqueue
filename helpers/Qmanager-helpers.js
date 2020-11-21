@@ -36,16 +36,19 @@ module.exports={
             Qdetails.endMin=parseInt(Qdetails.endMin)
             Qdetails.slotHr=parseInt(Qdetails.slotHr)
             Qdetails.slotMin=parseInt(Qdetails.slotMin);
-            (Qdetails)=>{
-                if(Qdetails.startHr>Qdetails.endHr)
-                {
-                    Qdetails.availableHr = 24-(Qdetails.startHr-Qdetails.endHr)
-                    
-                }
-            }
+            if(Qdetails.startHr>Qdetails.endHr)
+                availableHr = 24-(Qdetails.startHr-Qdetails.endHr);
+
+            else if(Qdetails.startHr==Qdetails.endHr)
+                availableHr = 24;
+            else
+                availableHr=Qdetails.endHr-Qdetails.startHr;
+            
+            Qdetails.availableTime=(availableHr*60)+(Qdetails.endMin-Qdetails.startMin);
+            Qdetails.slots=Qdetails.availableTime/((Qdetails.slotHr*60)+Qdetails.slotMin);
+            
             db.get().collection(collection.QUEUE_COLLECTION).insertOne(Qdetails).then((data) =>{
                 console.log(data.ops[0]);
-                
             })
         })
     }

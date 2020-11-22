@@ -33,12 +33,15 @@ router.get('/', function(req, res, next) {
 })
 
 router.get('/create-queue',(req,res) =>{
-  res.render('Qmanager/create-queue')
+  let user = req.session.user
+  res.render('Qmanager/create-queue',{user})
 })
 
 router.post('/create-queue',(req,res) =>{
-  QmanagerHelpers.createQueue(req.body).then((response) =>{
-    
+  QmanagerHelpers.storeQueueDetails(req.body).then((queueDetails) =>{
+    QmanagerHelpers.createSlots(queueDetails).then((response)=>{
+
+    })
   })
 })
 module.exports = router;

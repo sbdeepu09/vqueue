@@ -28,7 +28,7 @@ module.exports={
             }
         })
     },
-    createQueue:(Qdetails)=>{
+    storeQueueDetails:(Qdetails)=>{
         return new Promise((resolve,reject)=>{
             Qdetails.startHr=parseInt(Qdetails.startHr)
             Qdetails.startMin=parseInt(Qdetails.startMin)
@@ -48,6 +48,25 @@ module.exports={
             Qdetails.slots=Qdetails.availableTime/((Qdetails.slotHr*60)+Qdetails.slotMin);
             
             db.get().collection(collection.QUEUE_COLLECTION).insertOne(Qdetails).then((data) =>{
+                resolve(data.ops[0])
+            })
+        })
+    },
+    createSlots:(queueDetails) =>{
+        return new Promise((resolve,reject)=>{
+            console.log(queueDetails);
+            let slots ={}
+            for(i=0;i<=queueDetails.slots;i++)
+            {   
+                if(i==0){
+                    slots[i]=queueDetails._id
+                }else{
+                    slots[i]=true
+                }
+               
+            }
+            //console.log(slots);
+            db.get().collection(collection.QUEUESLOT_COLLECTION).insertOne(slots).then((data) =>{
                 console.log(data.ops[0]);
             })
         })

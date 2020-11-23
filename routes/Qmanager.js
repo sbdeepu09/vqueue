@@ -1,3 +1,4 @@
+const { log } = require('debug');
 const { response } = require('express');
 var express = require('express');
 var router = express.Router();
@@ -6,7 +7,12 @@ var QmanagerHelpers = require('../helpers/Qmanager-helpers')
 /* GET users listing. */
 router.get('/home', function(req, res, next) {
   let user = req.session.user
-  res.render('Qmanager/Qmanager-home.hbs',{Qmanager:true,user});
+  console.log({user});
+  QmanagerHelpers.getQueues(user).then((queues)=>{
+    console.log(queues);
+    res.render('Qmanager/Qmanager-home.hbs',{Qmanager:true,user,queues});
+  })
+  
 });
 
 router.get('/', function(req, res, next) {
@@ -28,6 +34,7 @@ router.get('/', function(req, res, next) {
     }else{
       req.session.loginErr = "Invalid username or password"
       res.redirect('/Qmanager/login')
+      req.session.loginErr=false
     }
   })
 })
@@ -40,6 +47,9 @@ router.get('/create-queue',(req,res) =>{
 router.post('/create-queue',(req,res) =>{
   QmanagerHelpers.storeQueueDetails(req.body).then((queueDetails) =>{
     QmanagerHelpers.createSlots(queueDetails).then((response)=>{
+     QmanagerHelpers.gettimings(queueDetails).then((result)=>{
+
+     })
 
     })
   })

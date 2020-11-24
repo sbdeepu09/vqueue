@@ -34,6 +34,12 @@ module.exports={
 
             }
         })
+    },
+    getAllQueues:()=>{
+        return new Promise(async(resolve,reject)=>{
+            let queues =await db.get().collection(collection.QUEUE_COLLECTION).find().toArray()
+            resolve(queues)
+          })
     }
 
 }

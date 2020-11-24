@@ -99,8 +99,15 @@ module.exports = {
           slotm[i] = min;
         }
       }
-      console.log(slothr);
-      console.log(slotm);
+      slothr[0]=Qdetails._id
+      slotm[0]=Qdetails._id
+      //console.log(slothr);
+      //console.log(slotm);
+      db.get().collection(collection.HRTIMING_COLLECTION).insertOne(slothr).then((data)=>{
+        db.get().collection(collection.MINTIMING_COLLECTION).insertOne(slotm).then((data1)=>{
+          resolve(data.ops[0])
+        })
+      })
     });
   },
   getQueues:(user)=>{
@@ -109,5 +116,10 @@ module.exports = {
         let queues =await db.get().collection(collection.QUEUE_COLLECTION).find({userId:user._id}).toArray()
         resolve(queues)
       })
+  },
+  displaytimings:(queueId)=>{
+    return new Promise((resolve,reject)=>{
+      
+    })
   }
 };

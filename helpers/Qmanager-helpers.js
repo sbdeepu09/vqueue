@@ -2,6 +2,7 @@ var db = require("../config/connection");
 var collection = require("../config/collections");
 const bcrypt = require("bcrypt");
 const collections = require("../config/collections");
+const { ObjectId } = require("mongodb");
 module.exports = {
   doLogin: (userData) => {
     return new Promise(async (resolve, reject) => {
@@ -117,9 +118,22 @@ module.exports = {
         resolve(queues)
       })
   },
-  displaytimings:(queueId)=>{
-    return new Promise((resolve,reject)=>{
-      
+  displayHr:(queueId)=>{
+    return new Promise(async (resolve,reject)=>{
+      let hr=await db.get().collection(collection.HRTIMING_COLLECTION).findOne({0:ObjectId(queueId)})
+      resolve(hr)
+    })
+  },
+  getslots:(queueId)=>{
+    return new Promise(async(resolve,reject)=>{
+      let slots = await db.get().collection(collection.QUEUESLOT_COLLECTION).findOne({0:ObjectId(queueId)})
+      resolve(slots)
+    })
+  },
+  displayMin:(queueId)=>{
+    return new Promise(async (resolve,reject)=>{
+      let min=await db.get().collection(collection.MINTIMING_COLLECTION).findOne({0:ObjectId(queueId)})
+      resolve(min)
     })
   }
-};
+};  

@@ -1,4 +1,5 @@
 var express = require('express');
+const QmanagerHelpers = require('../helpers/Qmanager-helpers');
 var router = express.Router();
 var userHelper=require('../helpers/user-helpers')
 /* GET home page. */
@@ -15,7 +16,6 @@ router.get('/',(req,res)=>{
 router.get('/home', function(req, res, next) {
   let user=req.session.user
   userHelper.getAllQueues().then((queues)=>{
-    console.log(queues);
     res.render('user/user-home.hbs',{ queues,user });
   })
 });
@@ -45,6 +45,20 @@ router.post('/',(req,res)=>{
 router.get('/logout',(req,res)=>{
   req.session.destroy()
   res.redirect('/')
+})
+
+router.get('/select-slot/:id',(req,res)=>{
+  QmanagerHelpers.displayHr(req.params.id).then((hr)=>{
+    QmanagerHelpers.displayMin(req.params.id).then((min)=>{
+      QmanagerHelpers.getslots(req.params.id).then((slots)=>{
+        res.render('user/select-slot',{hr,min,slots})
+      })
+    })
+
+  })
+ 
+ 
+
 })
 
 module.exports = router;

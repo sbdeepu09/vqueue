@@ -1,14 +1,13 @@
 <section>
     <div class="container mt-5">
         <div class="row">
-            {{#each services}}
+            {{#each queues}}
             <div class="col-md-3">
                 <div class="card" style="width: 10rem;">
-                    <img src="{{this.image}}"
-                        class="card-img-top" alt="card image cap">
                     <div class="card-body">
-                        <h5 class="card-title">{{this.name}}</h5>
-                        <p class="card-category">{{this.category}}</p>
+                        <h5 class="card-title">{{this.qname}}</h5>
+                        <p class="card-category">{{this.startHr}}:{{this.startMin}}-{{this.endHr}}:{{this.endMin}}</p>
+                        <p class="card-category">{{this.slots}} slots</p>
                         <a href="#" class="btn btn-primary">Select</a>
                     </div>
                 </div>

@@ -7,9 +7,7 @@ var QmanagerHelpers = require('../helpers/Qmanager-helpers')
 /* GET users listing. */
 router.get('/home', function(req, res, next) {
   let user = req.session.user
-  console.log({user});
   QmanagerHelpers.getQueues(user).then((queues)=>{
-    console.log(queues);
     res.render('Qmanager/Qmanager-home.hbs',{Qmanager:true,user,queues});
   })
   
@@ -47,8 +45,8 @@ router.get('/create-queue',(req,res) =>{
 router.post('/create-queue',(req,res) =>{
   QmanagerHelpers.storeQueueDetails(req.body).then((queueDetails) =>{
     QmanagerHelpers.createSlots(queueDetails).then((response)=>{
-     QmanagerHelpers.gettimings(queueDetails).then((result)=>{
-
+     QmanagerHelpers.gettimings(queueDetails).then((slotHr)=>{
+      res.redirect('/Qmanager/home')
      })
 
     })

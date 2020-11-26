@@ -1,20 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>LOGIN </title>
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
-<script>
-	
-</script>
 
 <!-- Custom Theme files -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link  rel="stylesheet" href="style.css">
 
-<!-- //web font -->
-</head>
+
 <body >
 	<style>
 
@@ -31,6 +23,8 @@ body {
 }
 .main{
 	margin-left: 60%
+	
+	
 }
 
 .info{
@@ -50,21 +44,16 @@ body {
 	
 }
 
-
-	</style>
+</style>
     
 	<div class="info">
 		<h1>WELCOME TO VQUEUE<br></h1>
-		<p>Providing the Queue at your Finger Tip</p>
+		<h4>Providing the Queue at your Finger Tip</h4>
 	</div>
-	<div class="main" align="center">
-		<style>
-			
-		</style>
-		<h1>LOGIN</h1>
-		<div class="main-agileinfo">
-			<div class="agileits-top">
-
+	<div class="main">
+		
+		<h1>USER LOGIN</h1>
+		
 				<form action="/" method="POST">
 					<input class="text" type="text" name="Email" placeholder="Email" required=""><br><br>
 					
@@ -74,16 +63,20 @@ body {
                 	{{/if}}
 					<input type="submit" value="Login">
 				</form>
-				<p>Don't have an Account? <a href="/signup"> Sign Up Now!</a></p>
+				<br>
+				<p><h4>Don't have an Account?</h4> <a href="/signup" class="btn btn-primary"> Sign Up Now!</a></p>
 
-			</div>
-		</div>		
-		       
-		<a href="/Qmanager"> CREATE QUEUE</a>
-        
-	
-	</div>
-    
-	<!-- //main -->
+		</div>
+		<div class="create">
+			<style>
+				.create{
+					margin-top: -10%;
+					margin-left: 7%;
+				}
+			</style>
+			<h4>Qmanager Login / Registration</h4><br>
+			<a href="/Qmanager" class="btn btn-primary"> CREATE QUEUE</a>
+			
+		</div>
+
 </body>
-</html>

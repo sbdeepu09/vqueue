@@ -102,8 +102,8 @@ module.exports = {
           slotm[i] = min;
         }
       }
-      slothr[0]=Qdetails._id
-      slotm[0]=Qdetails._id
+      slothr['Qid']=Qdetails._id
+      slotm['Qid']=Qdetails._id
       //console.log(slothr);
       //console.log(slotm);
       db.get().collection(collection.HRTIMING_COLLECTION).insertOne(slothr).then((data)=>{

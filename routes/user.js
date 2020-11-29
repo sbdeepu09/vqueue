@@ -51,7 +51,10 @@ router.get('/select-slot/:id',(req,res)=>{
   QmanagerHelpers.displayHr(req.params.id).then((hr)=>{
     QmanagerHelpers.displayMin(req.params.id).then((min)=>{
       QmanagerHelpers.getslots(req.params.id).then((slots)=>{
-        res.render('user/select-slot',{hr,min,slots})
+        userHelper.display(hr,min,slots).then((response)=>{
+          
+        })
+        
       })
     })
 

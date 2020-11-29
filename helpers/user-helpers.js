@@ -1,6 +1,7 @@
 var db=require('../config/connection')
 var collection=require('../config/collections')
 const bcrypt=require('bcrypt')
+const { resolve, reject } = require('promise')
 module.exports={
     doSignup:(userData)=>{
         return new Promise(async(resolve,reject)=>{
@@ -40,6 +41,23 @@ module.exports={
             let queues =await db.get().collection(collection.QUEUE_COLLECTION).find().toArray()
             resolve(queues)
           })
+    },
+    display:(hr,min,slots)=>{
+        return new Promise((resolve,reject)=>{
+            let result = []
+            let len=Object.keys(slots).length-2
+            
+            for(i=1;i<=len;i++){
+               if(slots[i]===true){
+                   
+               }
+            }
+
+
+        })
+
+
+        
     }
 
 }

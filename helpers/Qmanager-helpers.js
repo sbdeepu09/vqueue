@@ -122,7 +122,7 @@ module.exports = {
   },
   displayHr:(queueId)=>{
     return new Promise(async (resolve,reject)=>{
-      let hr=await db.get().collection(collection.HRTIMING_COLLECTION).findOne({0:ObjectId(queueId)})
+      let hr=await db.get().collection(collection.HRTIMING_COLLECTION).findOne({Qid:ObjectId(queueId)})
       resolve(hr)
     })
   },
@@ -134,7 +134,7 @@ module.exports = {
   },
   displayMin:(queueId)=>{
     return new Promise(async (resolve,reject)=>{
-      let min=await db.get().collection(collection.MINTIMING_COLLECTION).findOne({0:ObjectId(queueId)})
+      let min=await db.get().collection(collection.MINTIMING_COLLECTION).findOne({Qid:ObjectId(queueId)})
       resolve(min)
     })
   },

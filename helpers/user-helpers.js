@@ -2,6 +2,7 @@ var db=require('../config/connection')
 var collection=require('../config/collections')
 const bcrypt=require('bcrypt')
 const { resolve, reject } = require('promise')
+const { ObjectId } = require('mongodb')
 module.exports={
     doSignup:(userData)=>{
         return new Promise(async(resolve,reject)=>{
@@ -42,22 +43,34 @@ module.exports={
             resolve(queues)
           })
     },
-    display:(hr,min,slots)=>{
+    display:(hr,min,slots)=>{ 
         return new Promise((resolve,reject)=>{
+            console.log(hr,min);          
             let result = []
             let len=Object.keys(slots).length-2
             
             for(i=1;i<=len;i++){
+                let obj={}
                if(slots[i]===true){
-                   
+                
+                obj.status=true
+                obj.startHr=hr[i-1]
+                obj.startMin=min[i-1]
+                obj.endHr=hr[i]
+                obj.endMin=min[i]
+                result[i-1]=obj
                }
+              
             }
+            resolve(result)
 
-
+        })     
+    },
+    getQName:(queueId)=>{
+        return new Promise(async (resolve,reject)=>{
+            let name = await db.get().collection(collection.QUEUE_COLLECTION).findOne({_id:ObjectId(queueId)})
+            resolve(name.qname)  
         })
-
-
-        
     }
 
 }

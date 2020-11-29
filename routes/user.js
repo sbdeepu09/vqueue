@@ -1,5 +1,6 @@
 var express = require('express');
 const QmanagerHelpers = require('../helpers/Qmanager-helpers');
+const userHelpers = require('../helpers/user-helpers');
 var router = express.Router();
 var userHelper=require('../helpers/user-helpers')
 /* GET home page. */
@@ -51,8 +52,10 @@ router.get('/select-slot/:id',(req,res)=>{
   QmanagerHelpers.displayHr(req.params.id).then((hr)=>{
     QmanagerHelpers.displayMin(req.params.id).then((min)=>{
       QmanagerHelpers.getslots(req.params.id).then((slots)=>{
-        userHelper.display(hr,min,slots).then((response)=>{
-          
+        userHelper.display(hr,min,slots).then((result)=>{
+          userHelper.getQName(req.params.id).then((QName)=>{
+            res.render('user/select-slot',{result,QName})
+          })
         })
         
       })

@@ -1,12 +1,13 @@
 <div class="container">
-    <h1 class="text-center">Create Your Queue</h1>
+    <h1 class="text-center">Edit Your Queue</h1>
     <div class="row mt-5">
         <div class="col-md-6">
-            <form action="/Qmanager/create-queue" method="POST">
+            <form action="/Qmanager/edit/{{editqueue._id}}" method="POST">
                 <label for="qname">Queue name</label>
-                <input type="text" name="qname" class="form-control">
+                <input type="text" name="qname" class="form-control" value="{{editqueue.qname}}">
                 <label for="start">Starting time</label>
                 <select name="startHr" id="startHr">
+                    <option value="{{editqueue.startHr}}">{{editqueue.startHr}}</option>
                     <option value="0">00</option>
                     <option value="1">01</option>
                     <option value="2">02</option>
@@ -26,14 +27,15 @@
                     <option value="16">16</option>
                     <option value="17">17</option>
                     <option value="18">18</option>
-                    <option value="19">19</option>
+                    <option value="29">19</option>
                     <option value="20">20</option>
                     <option value="21">21</option>
                     <option value="22">22</option>
                     <option value="23">23</option>
-                    
+                   
                 </select>
                 <select name="startMin" id="startMin">
+                    <option value="{{editqueue.startMin}}">{{editqueue.startMin}}</option>
                     <option value="0">00</option>
                     <option value="1">01</option>
                     <option value="2">02</option>
@@ -97,6 +99,7 @@
                 </select>
                 <label for="end">Ending time</label>
                 <select name="endHr" id="endHr">
+                    <option value="{{editqueue.endHr}}">{{editqueue.endHr}}</option>
                     <option value="0">00</option>
                     <option value="1">01</option>
                     <option value="2">02</option>
@@ -121,9 +124,10 @@
                     <option value="21">21</option>
                     <option value="22">22</option>
                     <option value="23">23</option>
-                   
+                    
                 </select>
                 <select name="endMin" id="endMin">
+                    <option value="{{editqueue.endMin}}">{{editqueue.endMin}}</option>
                     <option value="0">00</option>
                     <option value="1">01</option>
                     <option value="2">02</option>
@@ -188,6 +192,7 @@
                 <br>
                 <label for="slotLength">Enter the slot length</label>
                 <select name="slotHr" id="slotHr">
+                    <option value="{{editqueue.slotHr}}">{{editqueue.slotHr}}</option>
                     <option value="0">00</option>
                     <option value="1">01</option>
                     <option value="2">02</option>
@@ -214,6 +219,7 @@
                     <option value="23">23</option>
                 </select>
                 <select name="slotMin" id="slotMin">
+                    <option value="{{editqueue.slotMin}}">{{editqueue.slotMin}}</option>
                     <option value="0">00</option>
                     <option value="1">01</option>
                     <option value="2">02</option>
@@ -275,10 +281,10 @@
                     <option value="58">58</option>
                     <option value="59">59</option>
                     </select>
-                    <input type="text" name="userId" id="" value="{{user._id}}" hidden>
+                    
                     <br>
                     <br>
-                <button class="btn btn-primary mt-3" type="submit">Create Queue</button>
+                <button class="btn btn-primary mt-3" type="submit">Edit Queue </button>
             </form>
         </div>
     </div>

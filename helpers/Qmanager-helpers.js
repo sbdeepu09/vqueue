@@ -3,6 +3,8 @@ var collection = require("../config/collections");
 const bcrypt = require("bcrypt");
 const collections = require("../config/collections");
 const { ObjectId } = require("mongodb");
+const { resolve, reject } = require("promise");
+const { response } = require("express");
 module.exports = {
   doLogin: (userData) => {
     return new Promise(async (resolve, reject) => {
@@ -45,9 +47,9 @@ module.exports = {
 
       Qdetails.availableTime =
         availableHr * 60 + (Qdetails.endMin - Qdetails.startMin);
-      Qdetails.slots =
-        Qdetails.availableTime / (Qdetails.slotHr * 60 + Qdetails.slotMin);
-
+      Qdetails.slots =Math.floor(Qdetails.availableTime / (Qdetails.slotHr * 60 + Qdetails.slotMin))
+      
+        
       db.get()
         .collection(collection.QUEUE_COLLECTION)
         .insertOne(Qdetails)
@@ -134,6 +136,52 @@ module.exports = {
     return new Promise(async (resolve,reject)=>{
       let min=await db.get().collection(collection.MINTIMING_COLLECTION).findOne({0:ObjectId(queueId)})
       resolve(min)
+    })
+  },
+  deletequeue:(qid)=>{
+    return new Promise((resolve,reject)=>{
+      db.get().collection(collection.QUEUE_COLLECTION).removeOne({_id:ObjectId(qid)}).then((response)=>{
+        resolve(response)
+      })
+    })
+  },
+  getQueueDetails:(qid)=>{
+    return new Promise((resolve,reject)=>{
+      db.get().collection(collection.QUEUE_COLLECTION).findOne({_id:ObjectId(qid)}).then((editqueue)=>{
+        resolve(editqueue)
+      })
+    })
+  },
+  updateQueue:(qid,Qdetails)=>{
+    return new Promise((resolve,reject)=>{
+      if (Qdetails.startHr > Qdetails.endHr)
+        availableHr = 24 - (Qdetails.startHr - Qdetails.endHr);
+      else if (Qdetails.startHr == Qdetails.endHr) availableHr = 24;
+      else availableHr = Qdetails.endHr - Qdetails.startHr;
+
+      Qdetails.availableTime =
+        availableHr * 60 + (Qdetails.endMin - Qdetails.startMin);
+      Qdetails.slots =Math.floor(Qdetails.availableTime / (Qdetails.slotHr * 60 + Qdetails.slotMin))
+        
+      db.get().collection(collection.QUEUE_COLLECTION).updateOne({_id:ObjectId(qid)},
+      {
+        
+        
+        $set:{
+          qname:Qdetails.qname,
+          startHr:Qdetails.startHr,
+          startMin:Qdetails.startMin,
+          endHr:Qdetails.endHr,
+          endMin:Qdetails.endMin,
+          slotHr:Qdetails.slotHr,
+          slotMin:Qdetails.slotMin,
+          availableTime:Qdetails.availableTime,
+          slots:Qdetails.slots
+
+        }
+      }).then((response)=>{
+        resolve()
+      })
     })
   }
 };  

@@ -11,6 +11,8 @@
                         <p class="card-category">{{this.startHr}}:{{this.startMin}}-{{this.endHr}}:{{this.endMin}}</p>
                         <p class="card-category">{{this.slots}} Slots</p>
                         <a href="#" class="btn btn-primary">Select</a>
+                        <a href="/Qmanager/edit/{{this._id}}" class="btn btn-success">EDIT</a>
+                        <a href="/Qmanager/delete/{{this._id}}" class="btn btn-danger" onclick="return confirm('Do you want to delete the Queue {{this.qname}} ')">DELETE</a>
                     </div>
                 </div>
             </div>

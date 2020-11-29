@@ -42,6 +42,27 @@ router.get('/create-queue',(req,res) =>{
   res.render('Qmanager/create-queue',{user})
 })
 
+router.get('/edit/:id',async(req,res)=>{
+  let editqueue=await QmanagerHelpers.getQueueDetails(req.params.id)
+  res.render('Qmanager/edit',{editqueue})
+})
+
+router.post('/edit/:id',(req,res)=>{
+  console.log(req.params.id)
+  QmanagerHelpers.updateQueue(req.params.id,req.body).then(()=>{
+    res.redirect('/Qmanager/home')
+  })
+})
+
+router.get('/delete/:id',(req,res)=>{
+  let qid=req.params.id
+  QmanagerHelpers.deletequeue(qid).then((response)=>{
+    res.redirect('/Qmanager/home')
+
+  })
+ 
+})
+
 router.post('/create-queue',(req,res) =>{
   QmanagerHelpers.storeQueueDetails(req.body).then((queueDetails) =>{
     QmanagerHelpers.createSlots(queueDetails).then((response)=>{

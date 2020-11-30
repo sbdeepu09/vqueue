@@ -190,9 +190,26 @@ module.exports = {
           slots:Qdetails.slots
 
         }
-      }).then((response)=>{
-        resolve()
+      
+      }
+      ).then((response)=>{
+        db.get().collection(collection.QUEUESLOT_COLLECTION).removeOne({0:ObjectId(qid)}).then((response1)=>{
+          db.get().collection(collection.HRTIMING_COLLECTION).removeOne({Qid:ObjectId(qid)}).then((response2)=>{
+            db.get().collection(collection.MINTIMING_COLLECTION).removeOne({Qid:ObjectId(qid)}).then((response3)=>{
+              db.get().collection(collection.QUEUE_COLLECTION).findOne({_id:ObjectId(qid)}).then((response4)=>{
+                resolve(response4);
+              
+              })
+            })
+          })
+        })
       })
+      
+      
+ 
+      
+
+
     })
   }
 };  

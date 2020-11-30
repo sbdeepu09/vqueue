@@ -48,9 +48,15 @@ router.get('/edit/:id',async(req,res)=>{
 })
 
 router.post('/edit/:id',(req,res)=>{
-  console.log(req.params.id)
-  QmanagerHelpers.updateQueue(req.params.id,req.body).then(()=>{
-    res.redirect('/Qmanager/home')
+  QmanagerHelpers.updateQueue(req.params.id,req.body).then((Qdetails)=>{
+    QmanagerHelpers.createSlots(Qdetails).then((response)=>{
+      QmanagerHelpers.gettimings(Qdetails).then((response1)=>{
+        res.redirect('/Qmanager/home')
+      })
+    })
+
+
+    
   })
 })
 

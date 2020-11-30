@@ -152,17 +152,28 @@ module.exports = {
       })
     })
   },
-  updateQueue:(qid,Qdetails)=>{
+  updateQueue:(qid,Qdetails)=>{    
     return new Promise((resolve,reject)=>{
-      if (Qdetails.startHr > Qdetails.endHr)
+      let availableHr=0 
+      Qdetails.startHr = parseInt(Qdetails.startHr);
+      Qdetails.startMin = parseInt(Qdetails.startMin);
+      Qdetails.endHr = parseInt(Qdetails.endHr);
+      Qdetails.endMin = parseInt(Qdetails.endMin);
+      Qdetails.slotHr = parseInt(Qdetails.slotHr);
+      Qdetails.slotMin = parseInt(Qdetails.slotMin);
+      if (Qdetails.startHr > Qdetails.endHr){
         availableHr = 24 - (Qdetails.startHr - Qdetails.endHr);
-      else if (Qdetails.startHr == Qdetails.endHr) availableHr = 24;
-      else availableHr = Qdetails.endHr - Qdetails.startHr;
+      }
+      else if (Qdetails.startHr === Qdetails.endHr) {
+        availableHr = 24;       
+      }
+      else {       
+        availableHr = Qdetails.endHr - Qdetails.startHr;
+      }
 
       Qdetails.availableTime =
         availableHr * 60 + (Qdetails.endMin - Qdetails.startMin);
-      Qdetails.slots =Math.floor(Qdetails.availableTime / (Qdetails.slotHr * 60 + Qdetails.slotMin))
-        
+      Qdetails.slots =Math.floor(Qdetails.availableTime / (Qdetails.slotHr * 60 + Qdetails.slotMin))  
       db.get().collection(collection.QUEUE_COLLECTION).updateOne({_id:ObjectId(qid)},
       {
         

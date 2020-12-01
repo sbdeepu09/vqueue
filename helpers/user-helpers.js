@@ -44,20 +44,20 @@ module.exports={
           })
     },
     display:(hr,min,slots)=>{ 
-        return new Promise((resolve,reject)=>{
-            console.log(hr,min);          
+        return new Promise((resolve,reject)=>{         
             let result = []
             let len=Object.keys(slots).length-2
             
             for(i=1;i<=len;i++){
                 let obj={}
                if(slots[i]===true){
-                obj.slots=i
+                obj.slotno=i
                 obj.status=true
                 obj.startHr=hr[i-1]
                 obj.startMin=min[i-1]
                 obj.endHr=hr[i]
                 obj.endMin=min[i]
+                obj.Qid=hr.Qid
                 result[i-1]=obj
                }
                else{
@@ -71,9 +71,40 @@ module.exports={
     },
     getQName:(queueId)=>{
         return new Promise(async (resolve,reject)=>{
-            let name = await db.get().collection(collection.QUEUE_COLLECTION).findOne({_id:ObjectId(queueId)})
-            resolve(name.qname)  
+            let Qdetails = await db.get().collection(collection.QUEUE_COLLECTION).findOne({_id:ObjectId(queueId)})
+            resolve(Qdetails)  
         })
     },
+    bookSlot:(Qid,slotNo)=>{
+        return new Promise((resolve,reject)=>{
+         db.get().collection(collection.QUEUESLOT_COLLECTION).updateOne({0:ObjectId(Qid)},
+         {
+             $set:{
+              [slotNo]:false  
+             }
+         }
+         )
+
+           
+        })
+    },
+    getSlotDetails:(Qid,slotNo)=>{
+        return new Promise(async (resolve,reject)=>{
+            eh=parseInt(slotNo)
+            sh=eh-1
+            eh=eh.toString()
+            sh=sh.toString()
+            let hrObj= await db.get().collection(collection.HRTIMING_COLLECTION).findOne({Qid:ObjectId(Qid)})
+            let minObj = await db.get().collection(collection.MINTIMING_COLLECTION).findOne({Qid:ObjectId(Qid)})
+            let resultObj={}
+            resultObj.startHr=hrObj[sh]
+            resultObj.startMin=minObj[sh]
+            resultObj.endHr=hrObj[eh]
+            resultObj.endMin=minObj[eh]
+            resultObj.slotNo=slotNo
+            
+            resolve(resultObj)
+        })
+    }
     
 }

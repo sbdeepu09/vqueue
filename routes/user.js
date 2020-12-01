@@ -1,3 +1,4 @@
+const { response } = require('express');
 var express = require('express');
 const QmanagerHelpers = require('../helpers/Qmanager-helpers');
 const userHelpers = require('../helpers/user-helpers');
@@ -53,9 +54,8 @@ router.get('/select-slot/:id',(req,res)=>{
     QmanagerHelpers.displayMin(req.params.id).then((min)=>{
       QmanagerHelpers.getslots(req.params.id).then((slots)=>{
         userHelper.display(hr,min,slots).then((result)=>{
-          userHelper.getQName(req.params.id).then((QName)=>{
-            console.log(result);
-            res.render('user/select-slot',{result,QName})
+          userHelper.getQName(req.params.id).then((Qdetails)=>{
+            res.render('user/select-slot',{result,Qdetails})
           })
         })
         
@@ -68,9 +68,13 @@ router.get('/select-slot/:id',(req,res)=>{
 
 })
 
-router.get('/bookslot/:slots',(req,res)=>{
- 
-  
-  res.render('user/bookslot')
+router.get('/bookslot/:Qid/:slotNo',(req,res)=>{
+  let Qid=req.params.Qid
+  let slotNo=req.params.slotNo  
+  userHelper.getSlotDetails(Qid,slotNo).then((result)=>{
+   userHelper.getQName(Qid).then((Qdetails)=>{
+    res.render('user/book-slot',{result,Qdetails})
+   })
+  })
 })
 module.exports = router;

@@ -1,15 +1,15 @@
 <section>
     <div class="container">
-        <h1 class="text-center">{{QName}}</h1>
+        <h1 class="text-center">{{Qdetails.qname}}</h1>
         <h3>Available Slots</h3>
         <div class="row">
             {{#each result}}
             <div class="col-md-3">
               <div class="card mt-3" style="width: 10rem;">
-                    <div class="card-body">Slot {{this.slots}}
+                    <div class="card-body">Slot {{this.slotno}}
                         <h5 class="card-title">{{this.startHr}}:{{this.startMin}}-{{this.endHr}}:{{this.endMin}}</h5>
                         <p class="card-category"></p>
-                        <a href="/bookslot/{{this.slots}}" class="btn btn-success">Book Slot</a>
+                        <a href="/bookslot/{{this.Qid}}/{{this.slotno}}" class="btn btn-success">Book Slot</a>
                     </div> 
                 </div>
             </div>

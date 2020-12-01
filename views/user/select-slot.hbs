@@ -6,12 +6,12 @@
             {{#each result}}
             <div class="col-md-3">
               <div class="card mt-3" style="width: 10rem;">
-                    <div class="card-body">
+                    <div class="card-body">Slot {{this.slots}}
                         <h5 class="card-title">{{this.startHr}}:{{this.startMin}}-{{this.endHr}}:{{this.endMin}}</h5>
                         <p class="card-category"></p>
-                        <a href="#" class="btn btn-success">Book Slot</a>
+                        <a href="/bookslot/{{this.slots}}" class="btn btn-success">Book Slot</a>
                     </div> 
                 </div>
             </div>
             {{/each}}
-        </div>>
+        </div>

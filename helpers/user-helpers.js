@@ -52,13 +52,16 @@ module.exports={
             for(i=1;i<=len;i++){
                 let obj={}
                if(slots[i]===true){
-                
+                obj.slots=i
                 obj.status=true
                 obj.startHr=hr[i-1]
                 obj.startMin=min[i-1]
                 obj.endHr=hr[i]
                 obj.endMin=min[i]
                 result[i-1]=obj
+               }
+               else{
+                   continue
                }
               
             }
@@ -71,6 +74,6 @@ module.exports={
             let name = await db.get().collection(collection.QUEUE_COLLECTION).findOne({_id:ObjectId(queueId)})
             resolve(name.qname)  
         })
-    }
-
+    },
+    
 }

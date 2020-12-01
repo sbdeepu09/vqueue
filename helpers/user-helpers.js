@@ -63,10 +63,8 @@ module.exports={
                else{
                    continue
                }
-              
             }
             resolve(result)
-
         })     
     },
     getQName:(queueId)=>{
@@ -85,8 +83,6 @@ module.exports={
          }
          )
          resolve(Qid)
-
-           
         })
     },
     getSlotDetails:(Qid,slotNo)=>{

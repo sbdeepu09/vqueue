@@ -152,6 +152,24 @@ module.exports = {
       })
     })
   },
+  display:(hr,min,slots)=>{
+    return new Promise((resolve,reject)=>{
+      let result = [];
+      let len = Object.keys(slots).length - 2;
+      for(i=1;i<len;i++){
+        let ob={}
+        ob.slotno=i;
+        ob.status=slots[i]
+        ob.startHr=hr[i-1]
+        ob.startMin=min[i-1]
+        ob.endHr=hr[i]
+        ob.endMin=min[i]
+        ob.Qid=hr.Qid
+        result[i-1]=ob
+      }
+      resolve(result)
+    })
+  },
   updateQueue:(qid,Qdetails)=>{    
     return new Promise((resolve,reject)=>{
       let availableHr=0 
@@ -175,9 +193,7 @@ module.exports = {
         availableHr * 60 + (Qdetails.endMin - Qdetails.startMin);
       Qdetails.slots =Math.floor(Qdetails.availableTime / (Qdetails.slotHr * 60 + Qdetails.slotMin))  
       db.get().collection(collection.QUEUE_COLLECTION).updateOne({_id:ObjectId(qid)},
-      {
-        
-        
+      {        
         $set:{
           qname:Qdetails.qname,
           startHr:Qdetails.startHr,
@@ -188,9 +204,7 @@ module.exports = {
           slotMin:Qdetails.slotMin,
           availableTime:Qdetails.availableTime,
           slots:Qdetails.slots
-
         }
-      
       }
       ).then((response)=>{
         db.get().collection(collection.QUEUESLOT_COLLECTION).removeOne({0:ObjectId(qid)}).then((response1)=>{
@@ -198,18 +212,11 @@ module.exports = {
             db.get().collection(collection.MINTIMING_COLLECTION).removeOne({Qid:ObjectId(qid)}).then((response3)=>{
               db.get().collection(collection.QUEUE_COLLECTION).findOne({_id:ObjectId(qid)}).then((response4)=>{
                 resolve(response4);
-              
               })
             })
           })
         })
       })
-      
-      
- 
-      
-
-
     })
   }
 };  

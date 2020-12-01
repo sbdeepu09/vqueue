@@ -58,14 +58,9 @@ router.get('/select-slot/:id',(req,res)=>{
             res.render('user/select-slot',{result,Qdetails})
           })
         })
-        
       })
     })
-
   })
- 
- 
-
 })
 
 router.get('/bookslot/:Qid/:slotNo',(req,res)=>{

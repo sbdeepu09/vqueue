@@ -3,6 +3,7 @@ const { response } = require('express');
 var express = require('express');
 var router = express.Router();
 var QmanagerHelpers = require('../helpers/Qmanager-helpers')
+var userHelper=require('../helpers/user-helpers')
 
 /* GET users listing. */
 router.get('/home', function(req, res, next) {
@@ -54,9 +55,6 @@ router.post('/edit/:id',(req,res)=>{
         res.redirect('/Qmanager/home')
       })
     })
-
-
-    
   })
 })
 
@@ -64,9 +62,7 @@ router.get('/delete/:id',(req,res)=>{
   let qid=req.params.id
   QmanagerHelpers.deletequeue(qid).then((response)=>{
     res.redirect('/Qmanager/home')
-
   })
- 
 })
 
 router.post('/create-queue',(req,res) =>{
@@ -75,7 +71,20 @@ router.post('/create-queue',(req,res) =>{
      QmanagerHelpers.gettimings(queueDetails).then((slotHr)=>{
       res.redirect('/Qmanager/home')
      })
+    })
+  })
+})
 
+router.get('/viewQueue/:id',(req,res)=>{
+  QmanagerHelpers.displayHr(req.params.id).then((hr)=>{
+    QmanagerHelpers.displayMin(req.params.id).then((min)=>{
+      QmanagerHelpers.getslots(req.params.id).then((slots)=>{
+        QmanagerHelpers.display(hr,min,slots).then((result)=>{
+          userHelper.getQName(req.params.id).then((Qdetails)=>{
+            res.render('Qmanager/view-Queue',{result,Qdetails});
+          })
+        })
+      })
     })
   })
 })

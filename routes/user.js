@@ -68,4 +68,9 @@ router.get('/select-slot/:id',(req,res)=>{
 
 })
 
+router.get('/bookslot/:slots',(req,res)=>{
+ 
+  
+  res.render('user/bookslot')
+})
 module.exports = router;

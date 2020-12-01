@@ -73,8 +73,18 @@ router.get('/bookslot/:Qid/:slotNo',(req,res)=>{
   let slotNo=req.params.slotNo  
   userHelper.getSlotDetails(Qid,slotNo).then((result)=>{
    userHelper.getQName(Qid).then((Qdetails)=>{
+    
     res.render('user/book-slot',{result,Qdetails})
    })
+  })
+})
+
+router.get('/confirm/:Qid/:slotNo',(req,res)=>{
+  let Qid=req.params.Qid
+  let slotNo=req.params.slotNo  
+  userHelper.bookSlot(Qid,slotNo).then((Qid)=>{   
+    
+      res.redirect('/')
   })
 })
 module.exports = router;

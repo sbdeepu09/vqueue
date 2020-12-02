@@ -84,7 +84,11 @@ router.get('/confirm/:Qid/:slotNo',(req,res)=>{
 })
 
 router.get('/profile',(req,res)=>{
-  res.render('user/profile')
+  console.log(req.session.user._id);
+  let name=req.session.user.Name;
+  let email=req.session.user.Email;
+  let phone=req.session.user.Phone;
+  res.render('user/profile',{name, email, phone})
  
 })
 module.exports = router;

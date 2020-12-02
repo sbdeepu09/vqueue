@@ -82,4 +82,9 @@ router.get('/confirm/:Qid/:slotNo',(req,res)=>{
       res.redirect('/')
   })
 })
+
+router.get('/profile',(req,res)=>{
+  res.render('user/profile')
+ 
+})
 module.exports = router;

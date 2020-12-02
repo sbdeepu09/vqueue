@@ -73,7 +73,7 @@ module.exports={
             resolve(Qdetails)  
         })
     },
-    bookSlot:(Qid,slotNo)=>{
+    bookSlot:(Qid,slotNo,userId)=>{
         return new Promise((resolve,reject)=>{
          db.get().collection(collection.QUEUESLOT_COLLECTION).updateOne({0:ObjectId(Qid)},
          {
@@ -83,6 +83,7 @@ module.exports={
          }
          )
          resolve(Qid)
+         db.get().collection(collection.BOOKING_COLLECTION).insert({queueId:Qid,slot:slotNo,user:userId})
         })
     },
     getSlotDetails:(Qid,slotNo)=>{

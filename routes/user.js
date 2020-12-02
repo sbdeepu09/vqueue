@@ -77,7 +77,8 @@ router.get('/bookslot/:Qid/:slotNo',(req,res)=>{
 router.get('/confirm/:Qid/:slotNo',(req,res)=>{
   let Qid=req.params.Qid
   let slotNo=req.params.slotNo  
-  userHelper.bookSlot(Qid,slotNo).then((Qid)=>{   
+  let user = req.session.user._id
+  userHelper.bookSlot(Qid,slotNo,user).then((Qid)=>{   
     
       res.redirect('/')
   })

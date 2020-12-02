@@ -218,5 +218,17 @@ module.exports = {
         })
       })
     })
+  },
+  getBookingDetails:(Qid,slotNo)=>{
+    return new Promise(async (resolve,reject)=>{
+      let details = await db.get().collection(collection.BOOKING_COLLECTION).findOne({queueId:Qid,slot:slotNo})
+      resolve(details.user)
+    })
+  },
+  getUserDetails:(userId)=>{
+    return new Promise(async (resolve,reject)=>{
+      let userDetails = await db.get().collection(collection.USER_COLLECTION).findOne({_id:ObjectId(userId)})
+      resolve(userDetails)
+    })
   }
 };  

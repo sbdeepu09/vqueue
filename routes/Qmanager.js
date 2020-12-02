@@ -7,40 +7,49 @@ var userHelper=require('../helpers/user-helpers')
 
 /* GET users listing. */
 router.get('/home', function(req, res, next) {
-  let user = req.session.user
-  QmanagerHelpers.getQueues(user).then((queues)=>{
-    res.render('Qmanager/Qmanager-home.hbs',{Qmanager:true,user,queues});
+  let Qmanager = req.session.Qmanager
+  QmanagerHelpers.getQueues(Qmanager).then((queues)=>{
+    res.render('Qmanager/Qmanager-home.hbs',{Qmanager:true,Qmanager,queues});
   })
   
 });
 
 router.get('/', function(req, res, next) {
-   
   res.render('Qmanager/create.hbs')
  });
 
  router.get('/login',function(req,res) {
-   res.render('Qmanager/login')
-
- })
+   res.render('Qmanager/login',{"loginErr":req.session.QmanagerloginErr})
+   req.session.QmanagerloginErr=false 
+  })
 
  router.post('/login',(req,res) =>{
   QmanagerHelpers.doLogin(req.body).then((response) =>{
+    console.log(response);
     if(response.status){
-      req.session.loggedIn=true
-      req.session.user=response.user
-      res.redirect('/Qmanager/home')
+      req.session.QmanagerloggedIn=true;
+      req.session.Qmanager=response.Qmanager;
+      res.redirect('/Qmanager/home');
     }else{
-      req.session.loginErr = "Invalid username or password"
+      req.session.QmanagerloginErr = "Invalid username or password"
       res.redirect('/Qmanager/login')
-      req.session.loginErr=false
+      req.session.QmanagerloginErr=false
     }
+  })
+})
+router.get('/register',(req,res)=>{
+  res.render('Qmanager/Qm-register');
+})
+
+router.post('/register',(req,res)=>{
+  QmanagerHelpers.doSignup(req.body).then((response)=>{
+    res.redirect('/Qmanager/login')
   })
 })
 
 router.get('/create-queue',(req,res) =>{
-  let user = req.session.user
-  res.render('Qmanager/create-queue',{user})
+  let Qmanager = req.session.Qmanager
+  res.render('Qmanager/create-queue',{Qmanager})
 })
 
 router.get('/edit/:id',async(req,res)=>{
@@ -66,6 +75,7 @@ router.get('/delete/:id',(req,res)=>{
 })
 
 router.post('/create-queue',(req,res) =>{
+  console.log(req.body);
   QmanagerHelpers.storeQueueDetails(req.body).then((queueDetails) =>{
     QmanagerHelpers.createSlots(queueDetails).then((response)=>{
      QmanagerHelpers.gettimings(queueDetails).then((slotHr)=>{

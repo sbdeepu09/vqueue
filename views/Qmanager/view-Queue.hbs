@@ -1,24 +1,22 @@
-<section>
-    <div class="container">
-        <h1 class="text-center">{{Qdetails.qname}}</h1>
-        <h3>Queue Details</h3>
-        <div class="row">
-            {{#each result}}
-            <div class="col-md-2">
-              <div class="card mt-5" style="width: 10rem;">
-                    <div class="card-body">Slot {{this.slotno}}
-                        <h5 class="card-title">{{this.startHr}}:{{this.startMin}}-{{this.endHr}}:{{this.endMin}}</h5>
-                        <p class="card-category">
-                            {{#if this.status}} 
-                                Available 
-                            {{else}} 
-                                Booked
-                                <a href="/Qmanager/booking-details/{{this.Qid}}/{{this.slotno}}" class="btn btn-primary">view booking details</a>
-                            {{/if}} </p>
-                    </div> 
-                </div>
+<div class="container">
+    <h1 class="text-center">{{Qdetails.qname}}</h1>
+    <h3>Queue Details</h3>
+    <div class="row">
+        {{#each result}}
+        <div class="col-md-2">
+            <div class="card mt-5" style="width: 10rem;">
+                <div class="card-body">Slot {{this.slotno}}
+                    <h5 class="card-title">{{this.startHr}}:{{this.startMin}}-{{this.endHr}}:{{this.endMin}}</h5>
+                    <p class="card-category">
+                        {{#if this.status}} 
+                            Available 
+                        {{else}} 
+                            Booked
+                            <a href="/Qmanager/booking-details/{{this.Qid}}/{{this.slotno}}" class="btn btn-primary">view booking details</a>
+                        {{/if}} </p>
+                </div> 
             </div>
-            {{/each}}
         </div>
+        {{/each}}
     </div>
-</section>
+</div>

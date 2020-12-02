@@ -3,9 +3,6 @@
         <div class="container mt-5 pl-5">
             <h2 class="text-center">Qmanager Login</h2>
             <form action="/Qmanager/login" method="POST">
-            {{#if loginErr}}
-                <p class="loginErr text-danger">Invalid username or password</p>
-            {{/if}}
                 <div class="form-group">
                     <label for="Email">Email Address</label>
                     <input type="email" class="form-control" name="Email" placeholder="Enter email">
@@ -13,8 +10,11 @@
                 <div class="form-group">
                     <label for="Password">Password</label>
                     <input type="password" class="form-control" name="Password" placeholder="Password">
-                </div>
-                <a href="/signup">Create new account ?</a>
+                </div><br>
+                {{#if loginErr}}
+                <p class="loginErr text-danger">Invalid username or password</p>
+                {{/if}}
+                <a href="/Qmanager/register">Create new account ?</a>
                 <button type="submit" class="btn btn-primary float-right">Login</button>
             </form>
         </div>

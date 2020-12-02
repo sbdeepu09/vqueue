@@ -7,8 +7,6 @@ var logger = require('morgan');
 
 var userRouter = require('./routes/user');
 
-
-
 var QmanagerRouter = require('./routes/Qmanager');
 
 

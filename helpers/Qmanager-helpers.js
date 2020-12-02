@@ -1,33 +1,41 @@
 var db = require("../config/connection");
 var collection = require("../config/collections");
 const bcrypt = require("bcrypt");
-const collections = require("../config/collections");
 const { ObjectId } = require("mongodb");
 const { resolve, reject } = require("promise");
 const { response } = require("express");
 module.exports = {
-  doLogin: (userData) => {
+  doSignup:(QmData)=>{
+    return new Promise(async(resolve,reject)=>{
+        QmData.Password=await bcrypt.hash(QmData.Password,10)
+        QmData.Qmanager=true;
+        db.get().collection(collection.QM_COLLECTION).insertOne(QmData).then((data)=>{
+            resolve(data.ops[0])
+        })
+    })
+  },
+  doLogin: (QmData) => {
     return new Promise(async (resolve, reject) => {
       let loginStatus = false;
       let response = {};
-      let user = await db
+      let Qm = await db
         .get()
-        .collection(collection.USER_COLLECTION)
-        .findOne({ Email: userData.Email });
-      if (user.Qmanager) {
-        bcrypt.compare(userData.Password, user.Password).then((status) => {
-          if (status) {
-            console.log("Login Success");
-            response.user = user;
+        .collection(collection.QM_COLLECTION)
+        .findOne({ Email: QmData.Email });
+      if (Qm) {
+        bcrypt.compare(QmData.Password, Qm.Password).then((status) => {
+          if(status) {
+            console.log("Qmanager Login Success");
+            response.Qmanager = Qm;
             response.status = true;
             resolve(response);
           } else {
-            console.log("Login Failed,password mismatch");
+            console.log("Qmanager Login Failed,password mismatch");
             resolve({ status: false });
           }
         });
       } else {
-        console.log("Login failed,User not found");
+        console.log("Qmanager Login failed,User not found");
         resolve({ status: false });
       }
     });
@@ -81,7 +89,7 @@ module.exports = {
   },
   gettimings: (Qdetails) => {
     return new Promise((resolve, reject) => {
-       console.log(Qdetails); 
+      //console.log(Qdetails); 
       let slothr = {};
       let slotm = {};
       slots = Qdetails.slots;
@@ -113,10 +121,10 @@ module.exports = {
       })
     });
   },
-  getQueues:(user)=>{
-      console.log(user._id);
+  getQueues:(Qm)=>{
+      console.log(Qm._id);
       return new Promise(async(resolve,reject)=>{
-        let queues =await db.get().collection(collection.QUEUE_COLLECTION).find({userId:user._id}).toArray()
+        let queues =await db.get().collection(collection.QUEUE_COLLECTION).find({QmanagerId:Qm._id}).toArray()
         resolve(queues)
       })
   },
@@ -156,7 +164,7 @@ module.exports = {
     return new Promise((resolve,reject)=>{
       let result = [];
       let len = Object.keys(slots).length - 2;
-      for(i=1;i<len;i++){
+      for(i=1;i<=len;i++){
         let ob={}
         ob.slotno=i;
         ob.status=slots[i]

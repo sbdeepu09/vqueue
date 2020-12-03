@@ -93,7 +93,6 @@ router.get('/profile',(req,res)=>{
 })
 
 router.get('/editprofile',(req,res)=>{
-  console.log(req.session.user._id);
   let name=req.session.user.Name;
   let email=req.session.user.Email;
   let phone=req.session.user.Phone;
@@ -103,9 +102,7 @@ router.get('/editprofile',(req,res)=>{
 })
 
 router.post('/editprofile',(req,res)=>{
-  console.log(req.body,req.session.user._id)
   userHelpers.updateprofile(req.body,req.session.user._id).then((userDetails)=>{
-    
     res.redirect('/home')
   })
 })

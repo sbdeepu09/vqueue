@@ -104,10 +104,9 @@ module.exports={
             resolve(resultObj)
         })
     },
-    updateprofile:(user,id)=>{
+    updateprofile:(user,userid)=>{
         return new Promise((resolve,reject)=>{
-           
-           db.get().collection(collection.USER_COLLECTION).updateOne({_id:ObjectId(id)},
+           db.get().collection(collection.USER_COLLECTION).updateOne({_id:ObjectId(userid)},
            {
                $set:{
                    Name:user.Name,
@@ -116,9 +115,8 @@ module.exports={
                }
            }
            ).then((response)=>{
-               db.get().collection(collection.USER_COLLECTION).removeOne({_id:ObjectId(id)}).then((response)=>{
+               db.get().collection(collection.USER_COLLECTION).findOne({_id:ObjectId(userid)}).then((response)=>{
                    resolve(response)
-                   console.log(response)
                })
            })
 

@@ -93,7 +93,20 @@ router.get('/profile',(req,res)=>{
 })
 
 router.get('/editprofile',(req,res)=>{
-  let editprofile = userHelpers.doSignup(req.body)
-  res.render('user/editprofile',{editprofile})
+  console.log(req.session.user._id);
+  let name=req.session.user.Name;
+  let email=req.session.user.Email;
+  let phone=req.session.user.Phone;
+  let password=req.session.user.Phone;
+  res.render('user/editprofile',{name, email, phone,password})
+ 
+})
+
+router.post('/editprofile',(req,res)=>{
+  console.log(req.body,req.session.user._id)
+  userHelpers.updateprofile(req.body,req.session.user._id).then((userDetails)=>{
+    
+    res.redirect('/home')
+  })
 })
 module.exports = router;

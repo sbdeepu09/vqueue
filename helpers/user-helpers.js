@@ -103,6 +103,27 @@ module.exports={
             
             resolve(resultObj)
         })
+    },
+    updateprofile:(user,id)=>{
+        return new Promise((resolve,reject)=>{
+           
+           db.get().collection(collection.USER_COLLECTION).updateOne({_id:ObjectId(id)},
+           {
+               $set:{
+                   Name:user.Name,
+                   Email:user.Email,
+                   Phone:user.Phone
+               }
+           }
+           ).then((response)=>{
+               db.get().collection(collection.USER_COLLECTION).removeOne({_id:ObjectId(id)}).then((response)=>{
+                   resolve(response)
+                   console.log(response)
+               })
+           })
+
+        })
     }
+    
     
 }

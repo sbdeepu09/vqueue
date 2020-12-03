@@ -1,6 +1,7 @@
 const { response } = require('express');
 var express = require('express');
 const QmanagerHelpers = require('../helpers/Qmanager-helpers');
+const userHelpers = require('../helpers/user-helpers');
 var router = express.Router();
 var userHelper=require('../helpers/user-helpers')
 /* GET home page. */
@@ -89,5 +90,10 @@ router.get('/profile',(req,res)=>{
   let phone=req.session.user.Phone;
   res.render('user/profile',{name, email, phone})
  
+})
+
+router.get('/editprofile',(req,res)=>{
+  let editprofile = userHelpers.doSignup(req.body)
+  res.render('user/editprofile',{editprofile})
 })
 module.exports = router;

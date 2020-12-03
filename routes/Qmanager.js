@@ -102,10 +102,13 @@ router.get('/viewQueue/:id',(req,res)=>{
 router.get('/booking-details/:Qid/:slotNo',(req,res)=>{
   QmanagerHelpers.getBookingDetails(req.params.Qid,req.params.slotNo).then((userId)=>{
     QmanagerHelpers.getUserDetails(userId).then((userDetails)=>{
-      
+      res.render('Qmanager/booking-details',{userId,userDetails})
+     
 
     })
 
   })
 })
+
+
 module.exports = router;

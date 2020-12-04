@@ -84,7 +84,6 @@ router.get('/confirm/:Qid/:slotNo',(req,res)=>{
 })
 
 router.get('/profile',(req,res)=>{
-  console.log(req.session.user._id);
   let name=req.session.user.Name;
   let email=req.session.user.Email;
   let phone=req.session.user.Phone;
@@ -101,9 +100,10 @@ router.get('/editprofile',(req,res)=>{
  
 })
 
-router.post('/editprofile',(req,res)=>{
+router.post('/editprofile',(req,res)=>
   userHelpers.updateprofile(req.body,req.session.user._id).then((userDetails)=>{
+    req.session.user=userDetails
     res.redirect('/home')
   })
-})
+)
 module.exports = router;

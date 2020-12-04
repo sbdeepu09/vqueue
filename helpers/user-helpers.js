@@ -117,6 +117,7 @@ module.exports={
            ).then((response)=>{
                db.get().collection(collection.USER_COLLECTION).findOne({_id:ObjectId(userid)}).then((response)=>{
                    resolve(response)
+                   console.log(response)
                })
            })
 

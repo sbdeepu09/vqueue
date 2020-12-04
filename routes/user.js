@@ -103,7 +103,7 @@ router.get('/editprofile',(req,res)=>{
 router.post('/editprofile',(req,res)=>
   userHelpers.updateprofile(req.body,req.session.user._id).then((userDetails)=>{
     req.session.user=userDetails
-    res.redirect('/home')
+    res.redirect('/profile')
   })
 )
 module.exports = router;

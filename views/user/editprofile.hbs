@@ -1,0 +1,27 @@
+<div class="row">
+    <div class="col-md-6 m-auto">
+        <div class="container mt-5 pl-5">
+            <h2 class="text-center">Edit Your Profile</h2>
+            <form action="/editprofile" method="POST">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" class="form-control" name="Name" value="{{name}}">
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" class="form-control" name="Email" value="{{email}}">
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" class="form-control" name="Phone" value="{{phone}}">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" class="form-control" name="Password" value="{{password}}">
+                </div>
+                 <button class="btn btn-primary mt-3" type="submit">Edit & Profile </button>
+                
+            </form>
+        </div>
+    </div>
+</div>

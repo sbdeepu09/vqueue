@@ -1,6 +1,7 @@
 const { response } = require('express');
 var express = require('express');
 const QmanagerHelpers = require('../helpers/Qmanager-helpers');
+const userHelpers = require('../helpers/user-helpers');
 var router = express.Router();
 var userHelper=require('../helpers/user-helpers')
 /* GET home page. */
@@ -83,11 +84,26 @@ router.get('/confirm/:Qid/:slotNo',(req,res)=>{
 })
 
 router.get('/profile',(req,res)=>{
-  console.log(req.session.user._id);
   let name=req.session.user.Name;
   let email=req.session.user.Email;
   let phone=req.session.user.Phone;
   res.render('user/profile',{name, email, phone})
  
 })
+
+router.get('/editprofile',(req,res)=>{
+  let name=req.session.user.Name;
+  let email=req.session.user.Email;
+  let phone=req.session.user.Phone;
+  let password=req.session.user.Phone;
+  res.render('user/editprofile',{name, email, phone,password})
+ 
+})
+
+router.post('/editprofile',(req,res)=>
+  userHelpers.updateprofile(req.body,req.session.user._id).then((userDetails)=>{
+    req.session.user=userDetails
+    res.redirect('/profile')
+  })
+)
 module.exports = router;

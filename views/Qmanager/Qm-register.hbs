@@ -10,7 +10,7 @@
                 </div>
                 <div class="form-group">
                     <label>Email Address</label>
-                    <input type="email" class="form-control" name="Email" placeholder="Enter email">
+                    <input type="email" class="form-control" name="Email" placeholder="Enter email" id="email">
                 </div>
                 <div class="form-group">
                     <label>Phone Number</label>
@@ -21,11 +21,60 @@
                     <input type="password" class="form-control" name="Password" placeholder="Password">
 
                 </div>
-
+                <button onclick="sendotp()" type="button">verify mail</button>
+                <div style="visibility: hidden;" id="otp-div">
+                    <label for="OTP">otp</label>
+                    <input type="text" class="form-control" name="otpfield" placeholder=" " id="otpfield" value="">
+                    <button onclick="verifyotp()" type="button">Verify otp</button>
+                </div>
                 
+
                 <a href="/Qmanager/login">Already have account ?</a>
-                <button type="submit" class="btn btn-primary float-right">Signup</button>
+                <div id="signup" style="visibility: hidden;">
+                    <button type="submit" class="btn btn-primary float-right">Signup</button>
+                </div>
+                
             </form>
+
+            <input type="text" id="generatedotp" name="generatedotp" hidden>
         </div>
     </div>
 </div>
+
+<script>
+    function sendotp() {
+        toMail = document.getElementById('email').value
+        $.ajax({
+            url: '/Qmanager/sendotp',
+            data: {
+                toMail: toMail
+            },
+            method: 'post',
+            success: (response) => {
+                if (response.status) {
+                    alert("OTP sent to email")
+                    document.getElementById('generatedotp').value = response.otp
+                } else {
+                    alert("Error")
+                }
+            }
+        })
+        $("#otp-div").css("visibility", "visible");
+
+    }
+
+    function verifyotp(){
+        let generatedotp=document.getElementById('generatedotp').value
+        let inputotp=document.getElementById('otpfield').value
+
+        console.log(generatedotp,inputotp)
+
+        if(generatedotp==inputotp){
+            alert("OTP verification successfull")
+            $("#signup").css("visibility", "visible");
+        }else{
+            alert("OTP verification failed.Please try again")
+        }
+
+    }
+</script>

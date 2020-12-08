@@ -5,19 +5,7 @@ var router = express.Router();
 var QmanagerHelpers = require('../helpers/Qmanager-helpers')
 var userHelper=require('../helpers/user-helpers')
 var nodemailer = require('nodemailer');
-var transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth:{
-    user:'femishaju19@gmail.com',
-    pass: 'Femi@1234'
-  }
-});
-var mailOptions={
-  from:'femishaju19@gmail.com',
-  to:'mahimaprakash05@gmail.com',
-  subject:'Qmanager Registration',
-  text:`Verification Required. Your OTP is. Kindly do not share the details with anyone`
-};
+
 /* GET users listing. */
 router.get('/home', function(req, res, next) {
   let Qmanager = req.session.Qmanager
@@ -38,7 +26,6 @@ router.get('/', function(req, res, next) {
 
  router.post('/login',(req,res) =>{
   QmanagerHelpers.doLogin(req.body).then((response) =>{
-    console.log(response);
     if(response.status){
       req.session.QmanagerloggedIn=true;
       req.session.Qmanager=response.Qmanager;
@@ -51,20 +38,22 @@ router.get('/', function(req, res, next) {
   })
 })
 router.get('/register',(req,res)=>{
-  transporter.sendMail(mailOptions,function(error,info){
-    if(error){
-      console.log(error)
-    }
-    else{
-      console.log('Email sent')
-    }
-  })
   res.render('Qmanager/Qm-register');
 })
 
+router.post('/sendotp',(req,res)=>{
+  QmanagerHelpers.sendMail(req.body).then((otp)=>{
+    let response = {}
+    response.otp = otp
+    response.status = true
+    res.json(response)
+  })
+})
+
 router.post('/register',(req,res)=>{
-   Qmdata=req.body   
-    res.render('/Qmanager/confirm-mail')
+    QmanagerHelpers.doSignup(req.body).then((response)=>{
+      res.render('Qmanager/login')
+    })
 
 })
 

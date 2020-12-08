@@ -1,12 +1,19 @@
 var db = require("../config/connection");
+let rn = require('random-number')
 var collection = require("../config/collections");
+let nodemailer = require('nodemailer')
 const bcrypt = require("bcrypt");
 const { ObjectId } = require("mongodb");
 const { resolve, reject } = require("promise");
 const { response } = require("express");
 module.exports = {
-  doSignup:(QmData)=>{
+  doSignup:(details)=>{
     return new Promise(async(resolve,reject)=>{
+        let QmData={}
+        QmData.Name=details.Name
+        QmData.Email=details.Email
+        QmData.Phone = details.Phone
+        QmData.Password = details.Password
         QmData.Password=await bcrypt.hash(QmData.Password,10)
         QmData.Qmanager=true;
         db.get().collection(collection.QM_COLLECTION).insertOne(QmData).then((data)=>{
@@ -237,6 +244,39 @@ module.exports = {
     return new Promise(async (resolve,reject)=>{
       let userDetails = await db.get().collection(collection.USER_COLLECTION).findOne({_id:ObjectId(userId)})
       resolve(userDetails)
+    })
+  },
+  sendMail:(mailID)=>{
+    return new Promise((resolve,reject)=>{
+        var options = {
+          min:  1000,
+           max:  9999,
+          integer: true
+        }
+        var otp = rn(options)
+      var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth:{
+            user:'femishaju19@gmail.com',
+            pass: 'Femi@1234'
+            }
+        });
+        var mailOptions={
+        from:'femishaju19@gmail.com',
+        to:mailID.toMail,
+        subject:'Qmanager Registration',
+        text:`Verification Required. Your OTP is `+otp+`.Kindly do not share the details with anyone`
+        };
+        transporter.sendMail(mailOptions,function(error,info){
+            if(error){
+            console.log(error)
+            }
+            else{
+            console.log('Email sent')
+            }
+        })
+        resolve(otp)
+
     })
   }
 };  

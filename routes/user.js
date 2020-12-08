@@ -78,7 +78,6 @@ router.get('/confirm/:Qid/:slotNo',(req,res)=>{
   let slotNo=req.params.slotNo  
   let user = req.session.user._id
   userHelper.bookSlot(Qid,slotNo,user).then((Qid)=>{   
-    
       res.redirect('/')
   })
 })

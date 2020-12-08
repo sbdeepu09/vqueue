@@ -18,6 +18,7 @@
     "morgan": "~1.9.1",
     "nodemailer": "^6.4.16",
     "nodemon": "^2.0.6",
-    "promise": "^8.1.0"
+    "promise": "^8.1.0",
+    "random-number": "0.0.9"
   }
 }

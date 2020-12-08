@@ -4,7 +4,7 @@ var hbs = require('express-handlebars')
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+var nodemailer = require('nodemailer');
 var userRouter = require('./routes/user');
 
 var QmanagerRouter = require('./routes/Qmanager');

@@ -4,7 +4,20 @@ var express = require('express');
 var router = express.Router();
 var QmanagerHelpers = require('../helpers/Qmanager-helpers')
 var userHelper=require('../helpers/user-helpers')
-
+var nodemailer = require('nodemailer');
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth:{
+    user:'femishaju19@gmail.com',
+    pass: 'Femi@1234'
+  }
+});
+var mailOptions={
+  from:'femishaju19@gmail.com',
+  to:'mahimaprakash05@gmail.com',
+  subject:'Qmanager Registration',
+  text:`Verification Required. Your OTP is. Kindly do not share the details with anyone`
+};
 /* GET users listing. */
 router.get('/home', function(req, res, next) {
   let Qmanager = req.session.Qmanager
@@ -38,13 +51,21 @@ router.get('/', function(req, res, next) {
   })
 })
 router.get('/register',(req,res)=>{
+  transporter.sendMail(mailOptions,function(error,info){
+    if(error){
+      console.log(error)
+    }
+    else{
+      console.log('Email sent')
+    }
+  })
   res.render('Qmanager/Qm-register');
 })
 
 router.post('/register',(req,res)=>{
-  QmanagerHelpers.doSignup(req.body).then((response)=>{
-    res.redirect('/Qmanager/login')
-  })
+   Qmdata=req.body   
+    res.render('/Qmanager/confirm-mail')
+
 })
 
 router.get('/create-queue',(req,res) =>{

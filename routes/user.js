@@ -54,7 +54,7 @@ router.get('/select-slot/:id',(req,res)=>{
       QmanagerHelpers.getslots(req.params.id).then((slots)=>{
         userHelper.display(hr,min,slots).then((result)=>{
           userHelper.getQName(req.params.id).then((Qdetails)=>{
-            res.render('user/select-slot',{result,Qdetails})
+            res.render('user/select-slot',{result,Qdetails,user:true })
           })
         })
       })
@@ -68,7 +68,7 @@ router.get('/bookslot/:Qid/:slotNo',(req,res)=>{
   userHelper.getSlotDetails(Qid,slotNo).then((result)=>{
    userHelper.getQName(Qid).then((Qdetails)=>{
     
-    res.render('user/book-slot',{result,Qdetails})
+    res.render('user/book-slot',{result,Qdetails, user:true })
    })
   })
 })
@@ -86,7 +86,7 @@ router.get('/profile',(req,res)=>{
   let name=req.session.user.Name;
   let email=req.session.user.Email;
   let phone=req.session.user.Phone;
-  res.render('user/profile',{name, email, phone})
+  res.render('user/profile',{name, email, phone,user:true })
  
 })
 
@@ -95,7 +95,7 @@ router.get('/editprofile',(req,res)=>{
   let email=req.session.user.Email;
   let phone=req.session.user.Phone;
   let password=req.session.user.Phone;
-  res.render('user/editprofile',{name, email, phone,password})
+  res.render('user/editprofile',{name, email, phone,password,user:true })
  
 })
 
@@ -108,7 +108,7 @@ router.post('/editprofile',(req,res)=>
 
 router.get('/active-tickets',(req,res)=>{
   userHelpers.getTicketDetails(req.session.user._id).then((booking)=>{
-    res.render('user/active-tickets.hbs', {booking})
+    res.render('user/active-tickets.hbs', {booking,user:true })
   })
 })
 

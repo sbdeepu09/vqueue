@@ -21,11 +21,13 @@
                     <input type="password" class="form-control" name="Password" placeholder="Password">
 
                 </div>
-                <button onclick="sendotp()" type="button">verify mail</button>
+                <div id="verifyMailButton">
+                    <button onclick="sendotp()" type="button" class="btn btn-success">verify mail</button>
+                </div>
                 <div style="visibility: hidden;" id="otp-div">
                     <label for="OTP">otp</label>
                     <input type="text" class="form-control" name="otpfield" placeholder=" " id="otpfield" value="">
-                    <button onclick="verifyotp()" type="button">Verify otp</button>
+                    <button onclick="verifyotp()" type="button" class="btn btn-success mt-2">Verify otp</button>
                 </div>
                 
 
@@ -35,14 +37,15 @@
                 </div>
                 
             </form>
-
-            <input type="text" id="generatedotp" name="generatedotp" hidden>
         </div>
     </div>
 </div>
 
 <script>
+    let generatedotp = ""
     function sendotp() {
+        var x = document.getElementById('verifyMailButton')
+        x.style.display = "none"
         toMail = document.getElementById('email').value
         $.ajax({
             url: '/Qmanager/sendotp',
@@ -53,7 +56,7 @@
             success: (response) => {
                 if (response.status) {
                     alert("OTP sent to email")
-                    document.getElementById('generatedotp').value = response.otp
+                    generatedotp = response.otp
                 } else {
                     alert("Error")
                 }
@@ -64,7 +67,6 @@
     }
 
     function verifyotp(){
-        let generatedotp=document.getElementById('generatedotp').value
         let inputotp=document.getElementById('otpfield').value
 
         console.log(generatedotp,inputotp)

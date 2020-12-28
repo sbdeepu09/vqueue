@@ -258,7 +258,7 @@ module.exports = {
         service: 'gmail',
         auth:{
             user:'femishaju19@gmail.com',
-            pass: 'Femi@1234'
+            pass: 'Femi@123'
             }
         });
         var mailOptions={

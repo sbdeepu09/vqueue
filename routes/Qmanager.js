@@ -64,7 +64,7 @@ router.get('/create-queue',(req,res) =>{
 
 router.get('/edit/:id',async(req,res)=>{
   let editqueue=await QmanagerHelpers.getQueueDetails(req.params.id)
-  res.render('Qmanager/edit',{editqueue})
+  res.render('Qmanager/edit',{editqueue, Qmanager:true} )
 })
 
 router.post('/edit/:id',(req,res)=>{
@@ -101,7 +101,7 @@ router.get('/viewQueue/:id',(req,res)=>{
       QmanagerHelpers.getslots(req.params.id).then((slots)=>{
         QmanagerHelpers.display(hr,min,slots).then((result)=>{
           userHelper.getQName(req.params.id).then((Qdetails)=>{
-            res.render('Qmanager/view-Queue',{result,Qdetails});
+            res.render('Qmanager/view-Queue',{result,Qdetails,Qmanager:true});
           })
         })
       })
@@ -112,12 +112,18 @@ router.get('/viewQueue/:id',(req,res)=>{
 router.get('/booking-details/:Qid/:slotNo',(req,res)=>{
   QmanagerHelpers.getBookingDetails(req.params.Qid,req.params.slotNo).then((userId)=>{
     QmanagerHelpers.getUserDetails(userId).then((userDetails)=>{
-      res.render('Qmanager/booking-details',{userId,userDetails})
+      res.render('Qmanager/booking-details',{userId,userDetails, Qmanager:true})
      
 
     })
 
   })
+})
+router.get('/Qprofile',(req,res)=>{
+  let name=req.session.Qmanager.Name;
+  let email=req.session.Qmanager.Email;
+  let phone=req.session.Qmanager.Phone;
+  res.render('Qmanager/Qprofile',{name, email, phone,Qmanager:true})
 })
 
 

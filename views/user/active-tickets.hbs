@@ -1,0 +1,18 @@
+<section>
+    <div class="container">
+        <h1 class="text-center">Your Active Tickets</h1>
+        <div class="row">
+            {{#each booking}}
+            <div class="col-md-3">
+              <div class="card mt-3" style="width: 10rem;">
+                    <div class="card-body">
+                        Slot {{this.slot}}
+                        <br><h4 class="card-category">{{this.qname}}</h4><br>
+                        <h5 class="card-title">  {{this.startHr}}:{{this.startMin}}-{{this.endHr}}:{{this.endMin}}</h5>
+                    </div> 
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</section>

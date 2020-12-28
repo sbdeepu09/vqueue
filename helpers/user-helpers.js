@@ -74,8 +74,8 @@ module.exports={
         })
     },
     bookSlot:(Qid,slotNo,userId)=>{
-        return new Promise((resolve,reject)=>{
-         db.get().collection(collection.QUEUESLOT_COLLECTION).updateOne({0:ObjectId(Qid)},
+        return new Promise(async(resolve,reject)=>{
+        db.get().collection(collection.QUEUESLOT_COLLECTION).updateOne({0:ObjectId(Qid)},
          {
              $set:{
               [slotNo]:false  
@@ -83,7 +83,14 @@ module.exports={
          }
          )
          resolve(Qid)
-         db.get().collection(collection.BOOKING_COLLECTION).insert({queueId:Qid,slot:slotNo,user:userId})
+         let qdetails=await db.get().collection(collection.QUEUE_COLLECTION).findOne({_id:ObjectId(Qid)})
+         eh=parseInt(slotNo)
+            sh=eh-1
+            eh=eh.toString()
+            sh=sh.toString()
+            let hrObj= await db.get().collection(collection.HRTIMING_COLLECTION).findOne({Qid:ObjectId(Qid)})
+            let minObj = await db.get().collection(collection.MINTIMING_COLLECTION).findOne({Qid:ObjectId(Qid)})
+         db.get().collection(collection.BOOKING_COLLECTION).insert({queueId:Qid,qname:qdetails.qname,startHr:hrObj[sh],startMin:minObj[sh],endHr:hrObj[eh],endMin:minObj[eh],slot:slotNo,user:userId})
         })
     },
     getSlotDetails:(Qid,slotNo)=>{
@@ -117,12 +124,17 @@ module.exports={
            ).then((response)=>{
                db.get().collection(collection.USER_COLLECTION).findOne({_id:ObjectId(userid)}).then((response)=>{
                    resolve(response)
-                   console.log(response)
+                   //console.log(response)
                })
            })
-
         })
-    }
+    },
+    getTicketDetails:(userid)=>{
+        return new Promise(async (resolve,reject)=>{
+        let details = await db.get().collection(collection.BOOKING_COLLECTION).find({user:userid}).toArray()
+        resolve(details)
+        })
+    }  
     
     
 }

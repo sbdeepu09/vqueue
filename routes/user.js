@@ -105,4 +105,11 @@ router.post('/editprofile',(req,res)=>
     res.redirect('/profile')
   })
 )
+
+router.get('/active-tickets',(req,res)=>{
+  userHelpers.getTicketDetails(req.session.user._id).then((booking)=>{
+    res.render('user/active-tickets.hbs', {booking})
+  })
+})
+
 module.exports = router;

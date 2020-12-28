@@ -20,5 +20,17 @@
     "nodemon": "^2.0.6",
     "promise": "^8.1.0",
     "random-number": "0.0.9"
-  }
+  },
+  "description": "A virtual queue management system-S5 Design Project",
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sbdeepu09/vqueue.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sbdeepu09/vqueue/issues"
+  },
+  "homepage": "https://github.com/sbdeepu09/vqueue#readme"
 }

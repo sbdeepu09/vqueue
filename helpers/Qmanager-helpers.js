@@ -278,5 +278,23 @@ module.exports = {
         resolve(otp)
 
     })
-  }
+  },
+  updateProfile:(Qmanager,QmanagerId)=>{
+    return new Promise((resolve,reject)=>{
+       db.get().collection(collection.QM_COLLECTION).updateOne({_id:ObjectId(QmanagerId)},
+       {
+           $set:{
+               Name:Qmanager.Name,
+               Email:Qmanager.Email,
+               Phone:Qmanager.Phone
+           }
+       }
+       ).then((response)=>{
+           db.get().collection(collection.QM_COLLECTION).findOne({_id:ObjectId(QmanagerId)}).then((response)=>{
+               resolve(response)
+               //console.log(response)
+           })
+       })
+    })
+}
 };  

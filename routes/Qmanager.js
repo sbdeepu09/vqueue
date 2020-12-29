@@ -130,5 +130,22 @@ router.get('/Qprofile',(req,res)=>{
   res.render('Qmanager/Qprofile',{name, email, phone,Qmanager})
 })
 
+router.get('/editprofile',(req,res)=>{
+  let Qmanager = req.session.Qmanager
+  let name=req.session.Qmanager.Name;
+  let email=req.session.Qmanager.Email;
+  let phone=req.session.Qmanager.Phone;
+  let password=req.session.Qmanager.password
+  res.render('Qmanager/edit-profile',{name, email, phone,password,Qmanager})
+
+})
+
+router.post('/editprofile',(req,res)=>{
+  QmanagerHelpers.updateProfile(req.body,req.session.Qmanager._id).then((QmanagerDetails)=>{
+    req.session.Qmanager=QmanagerDetails
+    res.redirect('/Qmanager/Qprofile')
+  })
+})
+
 
 module.exports = router;

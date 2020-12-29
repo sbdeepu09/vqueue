@@ -98,7 +98,7 @@ router.get('/editprofile',(req,res)=>{
   let name=req.session.user.Name;
   let email=req.session.user.Email;
   let phone=req.session.user.Phone;
-  let password=req.session.user.Phone;
+  let password=req.session.user.password;
   res.render('user/editprofile',{name, email, phone,password,user})
  
 })
